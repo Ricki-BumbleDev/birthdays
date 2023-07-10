@@ -3,14 +3,14 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 class BirthdayEntry {
   String name;
   String birthday;
-  int daysUntil;
-  int? age;
+  int daysUntilNextBirthday;
+  int? nextAge;
 
   BirthdayEntry(
       {required this.name,
       required this.birthday,
-      required this.daysUntil,
-      this.age});
+      required this.daysUntilNextBirthday,
+      this.nextAge});
 }
 
 Future<List<Contact>> getContacts() async {
@@ -35,23 +35,22 @@ BirthdayEntry getBirthdayEntry(Contact contact) {
       ? birthdayThisYear
       : DateTime(birthdayThisYear.year + 1, birthdayThisYear.month,
           birthdayThisYear.day);
-  var daysUntil = nextBirthday.difference(now).inDays;
+  var daysUntilNextBirthday = nextBirthday.difference(now).inDays;
   if (event.year == null) {
     return BirthdayEntry(
         name: contact.displayName,
-        birthday: '${event.month}-${event.day}',
-        daysUntil: daysUntil);
+        birthday:
+            '${event.month.toString().padLeft(2, '0')}-${event.day.toString().padLeft(2, '0')}',
+        daysUntilNextBirthday: daysUntilNextBirthday);
   } else {
     var trueBirthday = DateTime(event.year!, event.month, event.day);
-    var age = now.year - trueBirthday.year;
-    if (birthdayThisYear.isBefore(now)) {
-      age++;
-    }
+    var nextAge = nextBirthday.year - trueBirthday.year;
     return BirthdayEntry(
         name: contact.displayName,
-        birthday: '${event.year}-${event.month}-${event.day}',
-        daysUntil: daysUntil,
-        age: age);
+        birthday:
+            '${event.year}-${event.month.toString().padLeft(2, '0')}-${event.day.toString().padLeft(2, '0')}',
+        daysUntilNextBirthday: daysUntilNextBirthday,
+        nextAge: nextAge);
   }
 }
 
@@ -62,6 +61,7 @@ Future<List<BirthdayEntry>> getBirthdayEntries() async {
           contact.events.any((event) => event.label == EventLabel.birthday))
       .map(getBirthdayEntry)
       .toList();
-  birthdayEntries.sort((a, b) => a.daysUntil.compareTo(b.daysUntil));
+  birthdayEntries.sort(
+      (a, b) => a.daysUntilNextBirthday.compareTo(b.daysUntilNextBirthday));
   return birthdayEntries;
 }

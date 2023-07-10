@@ -56,14 +56,14 @@ class HomePage extends StatelessWidget {
                   var birthdayEntry = snapshot.data![index];
                   return ListTile(
                     title: Text(birthdayEntry.name),
-                    subtitle: Text(birthdayEntry.age == null
-                        ? birthdayEntry.birthday
-                        : 'turns ${birthdayEntry.age} (${birthdayEntry.birthday})'),
-                    trailing: Text(birthdayEntry.daysUntil == 0
+                    subtitle: Text(birthdayEntry.nextAge == null
+                        ? '(${birthdayEntry.birthday})'
+                        : 'turns ${birthdayEntry.nextAge} (${birthdayEntry.birthday})'),
+                    trailing: Text(birthdayEntry.daysUntilNextBirthday == 0
                         ? 'today'
-                        : birthdayEntry.daysUntil == 1
+                        : birthdayEntry.daysUntilNextBirthday == 1
                             ? 'tomorrow'
-                            : 'in ${birthdayEntry.daysUntil} days'),
+                            : 'in ${birthdayEntry.daysUntilNextBirthday} days'),
                   );
                 },
               );
