@@ -50,23 +50,32 @@ class HomePage extends StatelessWidget {
                 subtitle: Text(snapshot.error.toString()),
               );
             } else {
-              return ListView.builder(
-                itemCount: snapshot.data!.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var birthdayEntry = snapshot.data![index];
-                  return ListTile(
-                    title: Text(birthdayEntry.name),
-                    subtitle: Text(birthdayEntry.nextAge == null
-                        ? '(${birthdayEntry.birthday})'
-                        : 'turns ${birthdayEntry.nextAge} (${birthdayEntry.birthday})'),
-                    trailing: Text(birthdayEntry.daysUntilNextBirthday == 0
-                        ? 'today'
-                        : birthdayEntry.daysUntilNextBirthday == 1
-                            ? 'tomorrow'
-                            : 'in ${birthdayEntry.daysUntilNextBirthday} days'),
-                  );
-                },
-              );
+              if (snapshot.data!.isEmpty) {
+                return const ListTile(
+                  title: Text(
+                      'You don\'t have any contacts where birth date is set.'),
+                  subtitle: Text(
+                      'Go to the Contacts application and add a birth date to at least one of your contacts.'),
+                );
+              } else {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var birthdayEntry = snapshot.data![index];
+                    return ListTile(
+                      title: Text(birthdayEntry.name),
+                      subtitle: Text(birthdayEntry.nextAge == null
+                          ? '(${birthdayEntry.birthday})'
+                          : 'turns ${birthdayEntry.nextAge} (${birthdayEntry.birthday})'),
+                      trailing: Text(birthdayEntry.daysUntilNextBirthday == 0
+                          ? 'today'
+                          : birthdayEntry.daysUntilNextBirthday == 1
+                              ? 'tomorrow'
+                              : 'in ${birthdayEntry.daysUntilNextBirthday} days'),
+                    );
+                  },
+                );
+              }
             }
           },
         ));
