@@ -1,0 +1,10 @@
+{
+  "birthdays": "Cumpleaños",
+  "loading": "Se están cargando tus datos de contacto.",
+  "loadingHint": "Solo será un momentito.",
+  "error": "Desafortunadamente, se ha producido un error.",
+  "noContactsWithBirthday": "No tienes ningún contacto con fecha de nacimiento.",
+  "noContactsWithBirthdayHint": "Ve a la aplicación Contactos y añade una fecha de nacimiento al menos a uno de tus contactos.",
+  "nextAge": "cumple {nextAge}",
+  "daysUntilNextBirthday": "{daysUntilNextBirthday, plural, =0 {hoy} =1 {mañana} other {en {daysUntilNextBirthday} días}}"
+}

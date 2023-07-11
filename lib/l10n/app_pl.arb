@@ -1,0 +1,10 @@
+{
+  "birthdays": "Urodziny",
+  "loading": "Trwa ładowanie danych kontaktowych.",
+  "loadingHint": "To zajmie tylko chwilę.",
+  "error": "Niestety wystąpił błąd.",
+  "noContactsWithBirthday": "Nie masz żadnych kontaktów, w których ustawiona jest data urodzenia.",
+  "noContactsWithBirthdayHint": "Przejdź do aplikacji Kontakty i dodaj datę urodzenia do co najmniej jednego z kontaktów.",
+  "nextAge": "kończy {nextAge}",
+  "daysUntilNextBirthday": "{daysUntilNextBirthday, plural, =0 {dziś} =1 {jutro} other {za {daysUntilNextBirthday} dni}}"
+}
