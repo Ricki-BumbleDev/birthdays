@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'birthday_entries.dart';
@@ -17,11 +18,13 @@ class MyApp extends StatelessWidget {
       Wakelock.enable();
     }
     return MaterialApp(
-      title: 'Birthdays',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.birthdays,
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),
       home: const HomePage(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }
@@ -33,29 +36,29 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Birthdays'),
+          title: Text(AppLocalizations.of(context)!.birthdays),
         ),
         body: FutureBuilder<List<BirthdayEntry>>(
           future: getBirthdayEntries(),
           builder: (BuildContext context,
               AsyncSnapshot<List<BirthdayEntry>> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const ListTile(
-                title: Text('Your contact data is being loaded.'),
-                subtitle: Text('It will just be a second.'),
+              return ListTile(
+                title: Text(AppLocalizations.of(context)!.loading),
+                subtitle: Text(AppLocalizations.of(context)!.loadingHint),
               );
             } else if (snapshot.hasError) {
               return ListTile(
-                title: const Text('Unfortunately, an error has occured.'),
+                title: Text(AppLocalizations.of(context)!.error),
                 subtitle: Text(snapshot.error.toString()),
               );
             } else {
               if (snapshot.data!.isEmpty) {
-                return const ListTile(
+                return ListTile(
                   title: Text(
-                      'You don\'t have any contacts where birth date is set.'),
+                      AppLocalizations.of(context)!.noContactsWithBirthday),
                   subtitle: Text(
-                      'Go to the Contacts application and add a birth date to at least one of your contacts.'),
+                      AppLocalizations.of(context)!.noContactsWithBirthdayHint),
                 );
               } else {
                 return ListView.builder(
@@ -64,14 +67,16 @@ class HomePage extends StatelessWidget {
                     var birthdayEntry = snapshot.data![index];
                     return ListTile(
                       title: Text(birthdayEntry.name),
-                      subtitle: Text(birthdayEntry.nextAge == null
-                          ? '(${birthdayEntry.birthday})'
-                          : 'turns ${birthdayEntry.nextAge} (${birthdayEntry.birthday})'),
-                      trailing: Text(birthdayEntry.daysUntilNextBirthday == 0
-                          ? 'today'
-                          : birthdayEntry.daysUntilNextBirthday == 1
-                              ? 'tomorrow'
-                              : 'in ${birthdayEntry.daysUntilNextBirthday} days'),
+                      subtitle: Text([
+                        birthdayEntry.nextAge != null
+                            ? AppLocalizations.of(context)!
+                                .nextAge(birthdayEntry.nextAge!)
+                            : null,
+                        '(${birthdayEntry.birthday})'
+                      ].where((s) => s != null).join(' ')),
+                      trailing: Text(AppLocalizations.of(context)!
+                          .daysUntilNextBirthday(
+                              birthdayEntry.daysUntilNextBirthday)),
                     );
                   },
                 );

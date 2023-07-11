@@ -1,0 +1,10 @@
+{
+  "birthdays": "Birthdays",
+  "loading": "Your contact data is being loaded.",
+  "loadingHint": "It will be just a second.",
+  "error": "Unfortunately, an error has occured.",
+  "noContactsWithBirthday": "You don't have any contacts where birth date is set.",
+  "noContactsWithBirthdayHint": "Go to the Contacts application and add a birth date to at least one of your contacts.",
+  "nextAge": "turns {nextAge}",
+  "daysUntilNextBirthday": "{daysUntilNextBirthday, plural, =0 {today} =1 {tomorrow} other {in {daysUntilNextBirthday} days}}"
+}
