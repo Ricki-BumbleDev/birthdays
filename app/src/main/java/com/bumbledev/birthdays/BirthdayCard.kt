@@ -18,6 +18,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import java.time.format.DateTimeFormatter
@@ -29,6 +31,7 @@ object DateFormatters {
 
 @Composable
 fun BirthdayCard(birthday: Birthday) {
+    val context = LocalContext.current
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
@@ -64,9 +67,9 @@ fun BirthdayCard(birthday: Birthday) {
                 Spacer(modifier = Modifier.height(4.dp))
 
                 val daysText = when (birthday.daysUntil) {
-                    0 -> "Today! 🎉"
-                    1 -> "Tomorrow"
-                    else -> "in ${birthday.daysUntil} days"
+                    0 -> stringResource(R.string.birthday_today_celebration)
+                    1 -> stringResource(R.string.birthday_tomorrow)
+                    else -> context.getString(R.string.birthday_in_days, birthday.daysUntil)
                 }
 
                 Text(

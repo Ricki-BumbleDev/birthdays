@@ -6,22 +6,24 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navController: NavController) {
-    var setting1Enabled by remember { mutableStateOf(true) }
-    var setting2Enabled by remember { mutableStateOf(false) }
+    var sameDayNotificationEnabled by remember { mutableStateOf(true) }
+    var threeDayAdvanceNotificationEnabled by remember { mutableStateOf(false) }
+    var sevenDayAdvanceNotificationEnabled by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Settings") },
+                title = { Text(stringResource(R.string.settings_screen_title)) },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back))
                     }
                 }
             )
@@ -46,18 +48,18 @@ fun SettingsScreen(navController: NavController) {
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "Enable Notifications",
+                                text = stringResource(R.string.birthday_notifications_title),
                                 style = MaterialTheme.typography.titleMedium
                             )
                             Text(
-                                text = "Receive notifications about app updates",
+                                text = stringResource(R.string.birthday_notifications_description),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                         Switch(
-                            checked = setting1Enabled,
-                            onCheckedChange = { setting1Enabled = it }
+                            checked = sameDayNotificationEnabled,
+                            onCheckedChange = { sameDayNotificationEnabled = it }
                         )
                     }
 
@@ -70,18 +72,42 @@ fun SettingsScreen(navController: NavController) {
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = "Dark Mode",
+                                text = stringResource(R.string.three_day_notifications_title),
                                 style = MaterialTheme.typography.titleMedium
                             )
                             Text(
-                                text = "Enable dark theme",
+                                text = stringResource(R.string.three_day_notifications_description),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                         Switch(
-                            checked = setting2Enabled,
-                            onCheckedChange = { setting2Enabled = it }
+                            checked = threeDayAdvanceNotificationEnabled,
+                            onCheckedChange = { threeDayAdvanceNotificationEnabled = it }
+                        )
+                    }
+                    
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
+                    
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = stringResource(R.string.seven_day_notifications_title),
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                            Text(
+                                text = stringResource(R.string.seven_day_notifications_description),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Switch(
+                            checked = sevenDayAdvanceNotificationEnabled,
+                            onCheckedChange = { sevenDayAdvanceNotificationEnabled = it }
                         )
                     }
                 }

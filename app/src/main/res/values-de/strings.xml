@@ -1,0 +1,31 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Birthdays</string>
+
+    <!-- Main Screen -->
+    <string name="main_screen_title">Geburtstage</string>
+    <string name="settings_icon_description">Einstellungen</string>
+    <string name="no_birthdays_found">Keine Kontakte mit Geburtstagen gefunden</string>
+
+    <!-- Birthday Card -->
+    <string name="birthday_today_celebration">Heute! 🎉</string>
+    <string name="birthday_tomorrow">Morgen</string>
+    <string name="birthday_in_days">in %d Tagen</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_screen_title">Einstellungen</string>
+    <string name="back">Zurück</string>
+    <string name="birthday_notifications_title">Geburtstags-Benachrichtigungen</string>
+    <string name="birthday_notifications_description">Erhalte Benachrichtigungen um 9 Uhr am Tag des Geburtstags</string>
+    <string name="three_day_notifications_title">3-Tage-Vorankündigung</string>
+    <string name="three_day_notifications_description">Erhalte Benachrichtigungen um 9 Uhr, 3 Tage vor dem Geburtstag</string>
+    <string name="seven_day_notifications_title">7-Tage-Vorankündigung</string>
+    <string name="seven_day_notifications_description">Erhalte Benachrichtigungen um 9 Uhr, 7 Tage vor dem Geburtstag</string>
+
+    <!-- Start Screen -->
+    <string name="start_screen_title">Geburtstags-App</string>
+    <string name="welcome_message">Willkommen in der Geburtstags-App</string>
+    <string name="permission_explanation">Wir benötigen Zugriff auf Ihre Kontakte, um Geburtstage in der App anzuzeigen.</string>
+    <string name="grant_permission_button">Kontaktzugriff erlauben</string>
+    <string name="permission_denied_message">Da Sie die Kontaktberechtigung nicht akzeptiert haben, kann die App nicht viel tun.</string>
+</resources>

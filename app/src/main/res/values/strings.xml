@@ -1,3 +1,31 @@
 <resources>
+    <!-- App Name -->
     <string name="app_name">Birthdays</string>
+
+    <!-- Main Screen -->
+    <string name="main_screen_title">Birthdays</string>
+    <string name="settings_icon_description">Settings</string>
+    <string name="no_birthdays_found">No contacts with birthdays found</string>
+
+    <!-- Birthday Card -->
+    <string name="birthday_today_celebration">Today! 🎉</string>
+    <string name="birthday_tomorrow">Tomorrow</string>
+    <string name="birthday_in_days">in %d days</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_screen_title">Settings</string>
+    <string name="back">Back</string>
+    <string name="birthday_notifications_title">Birthday Notifications</string>
+    <string name="birthday_notifications_description">Receive notifications at 9am on the day of a birthday</string>
+    <string name="three_day_notifications_title">3-Day Advance Notifications</string>
+    <string name="three_day_notifications_description">Receive notifications at 9am, 3 days before a birthday</string>
+    <string name="seven_day_notifications_title">7-Day Advance Notifications</string>
+    <string name="seven_day_notifications_description">Receive notifications at 9am, 7 days before a birthday</string>
+
+    <!-- Start Screen -->
+    <string name="start_screen_title">Birthdays App</string>
+    <string name="welcome_message">Welcome to Birthdays App</string>
+    <string name="permission_explanation">We need access to your contacts to display birthdays in the app.</string>
+    <string name="grant_permission_button">Grant Contacts Permission</string>
+    <string name="permission_denied_message">Since you haven\'t accepted the contacts permission, the app can\'t do much.</string>
 </resources>

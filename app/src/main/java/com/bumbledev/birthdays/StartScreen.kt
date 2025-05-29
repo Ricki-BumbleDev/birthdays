@@ -16,6 +16,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -28,7 +29,7 @@ fun StartScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Birthdays App") }
+                title = { Text(stringResource(R.string.start_screen_title)) }
             )
         }
     ) { paddingValues ->
@@ -50,7 +51,7 @@ fun StartScreen(
                     )
                 ) {
                     Text(
-                        text = "Since you haven't accepted the contacts permission, the app can't do much.",
+                        text = stringResource(R.string.permission_denied_message),
                         modifier = Modifier.padding(16.dp),
                         color = MaterialTheme.colorScheme.onErrorContainer,
                         textAlign = TextAlign.Center
@@ -58,13 +59,13 @@ fun StartScreen(
                 }
             } else {
                 Text(
-                    text = "Welcome to Birthdays App",
+                    text = stringResource(R.string.welcome_message),
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
 
                 Text(
-                    text = "We need access to your contacts to display birthdays in the app.",
+                    text = stringResource(R.string.permission_explanation),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 32.dp)
@@ -75,7 +76,7 @@ fun StartScreen(
                 onClick = onRequestPermission,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Grant Contacts Permission")
+                Text(stringResource(R.string.grant_permission_button))
             }
         }
     }

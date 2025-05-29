@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
@@ -32,10 +33,10 @@ fun MainScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Birthdays") },
+                title = { Text(stringResource(R.string.main_screen_title)) },
                 actions = {
                     IconButton(onClick = { navController.navigate("settings") }) {
-                        Icon(Icons.Default.Settings, contentDescription = "Settings")
+                        Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.settings_icon_description))
                     }
                 }
             )
@@ -48,7 +49,7 @@ fun MainScreen(navController: NavController) {
                     .padding(paddingValues),
                 contentAlignment = Alignment.Center
             ) {
-                Text("No contacts with birthdays found")
+                Text(stringResource(R.string.no_birthdays_found))
             }
         } else {
             LazyColumn(
