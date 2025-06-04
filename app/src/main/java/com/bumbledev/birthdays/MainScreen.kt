@@ -28,7 +28,8 @@ import androidx.navigation.NavController
 @Composable
 fun MainScreen(navController: NavController) {
     val context = LocalContext.current
-    val birthdays = remember { ContactRepository.fetchBirthdays(context) }
+    val contactRepository = remember { ContactRepository(context) }
+    val birthdays = remember { contactRepository.getBirthdays() }
 
     Scaffold(
         topBar = {

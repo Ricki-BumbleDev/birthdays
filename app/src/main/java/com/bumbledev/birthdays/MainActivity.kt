@@ -14,6 +14,7 @@ class MainActivity : ComponentActivity() {
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
         if (isGranted) {
+            initializeNotifications()
             // Permission granted, navigate to main screen
             setContent {
                 BirthdaysTheme {
@@ -29,6 +30,16 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    
+    private fun initializeNotifications() {
+        val notificationPreferences = NotificationPreferences(this)
+        val notificationManager = BirthdayNotificationManager(this)
+        val contactRepository = ContactRepository(this)
+        
+        val settings = notificationPreferences.getNotificationSettings()
+        val birthdays = contactRepository.getBirthdays()
+        notificationManager.scheduleNotifications(birthdays, settings)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +48,10 @@ class MainActivity : ComponentActivity() {
             this,
             Manifest.permission.READ_CONTACTS
         ) == PackageManager.PERMISSION_GRANTED
+
+        if (hasContactsPermission) {
+            initializeNotifications()
+        }
 
         setContent {
             BirthdaysTheme {

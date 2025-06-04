@@ -7,11 +7,15 @@ import java.time.MonthDay
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-object ContactRepository {
-    private val dateWithYearFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    private val dateWithoutYearFormatter = DateTimeFormatter.ofPattern("--MM-dd")
+class ContactRepository(private val context: Context) {
+    companion object {
+        private val dateWithYearFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        private val dateWithoutYearFormatter = DateTimeFormatter.ofPattern("--MM-dd")
+    }
 
-    fun fetchBirthdays(context: Context): List<Birthday> {
+    fun getBirthdays(): List<Birthday> = fetchBirthdays()
+    
+    private fun fetchBirthdays(): List<Birthday> {
         val uri = ContactsContract.Data.CONTENT_URI
         val projections = arrayOf(
             ContactsContract.Data.DISPLAY_NAME,

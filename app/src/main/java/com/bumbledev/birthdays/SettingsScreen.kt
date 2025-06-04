@@ -6,6 +6,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
@@ -13,9 +14,32 @@ import androidx.navigation.NavController
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(navController: NavController) {
-    var sameDayNotificationEnabled by remember { mutableStateOf(true) }
-    var threeDayAdvanceNotificationEnabled by remember { mutableStateOf(false) }
-    var sevenDayAdvanceNotificationEnabled by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val notificationPreferences = remember { NotificationPreferences(context) }
+    val notificationManager = remember { BirthdayNotificationManager(context) }
+    val contactRepository = remember { ContactRepository(context) }
+    
+    var sameDayNotificationEnabled by remember { 
+        mutableStateOf(notificationPreferences.sameDayEnabled) 
+    }
+    var threeDayAdvanceNotificationEnabled by remember { 
+        mutableStateOf(notificationPreferences.threeDayEnabled) 
+    }
+    var sevenDayAdvanceNotificationEnabled by remember { 
+        mutableStateOf(notificationPreferences.sevenDayEnabled) 
+    }
+    
+    fun updateNotifications() {
+        val settings = NotificationSettings(
+            sameDayEnabled = sameDayNotificationEnabled,
+            threeDayEnabled = threeDayAdvanceNotificationEnabled,
+            sevenDayEnabled = sevenDayAdvanceNotificationEnabled
+        )
+        notificationPreferences.saveNotificationSettings(settings)
+        
+        val birthdays = contactRepository.getBirthdays()
+        notificationManager.scheduleNotifications(birthdays, settings)
+    }
 
     Scaffold(
         topBar = {
@@ -59,7 +83,10 @@ fun SettingsScreen(navController: NavController) {
                         }
                         Switch(
                             checked = sameDayNotificationEnabled,
-                            onCheckedChange = { sameDayNotificationEnabled = it }
+                            onCheckedChange = { 
+                                sameDayNotificationEnabled = it
+                                updateNotifications()
+                            }
                         )
                     }
 
@@ -83,7 +110,10 @@ fun SettingsScreen(navController: NavController) {
                         }
                         Switch(
                             checked = threeDayAdvanceNotificationEnabled,
-                            onCheckedChange = { threeDayAdvanceNotificationEnabled = it }
+                            onCheckedChange = { 
+                                threeDayAdvanceNotificationEnabled = it
+                                updateNotifications()
+                            }
                         )
                     }
                     
@@ -107,7 +137,10 @@ fun SettingsScreen(navController: NavController) {
                         }
                         Switch(
                             checked = sevenDayAdvanceNotificationEnabled,
-                            onCheckedChange = { sevenDayAdvanceNotificationEnabled = it }
+                            onCheckedChange = { 
+                                sevenDayAdvanceNotificationEnabled = it
+                                updateNotifications()
+                            }
                         )
                     }
                 }
