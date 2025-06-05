@@ -16,7 +16,6 @@ class BirthdayNotificationManager(private val context: Context) {
     
     companion object {
         const val CHANNEL_ID = "birthday_notifications"
-        const val CHANNEL_NAME = "Birthday Notifications"
         const val SAME_DAY_WORK_TAG = "birthday_same_day"
         const val THREE_DAY_WORK_TAG = "birthday_three_day"
         const val SEVEN_DAY_WORK_TAG = "birthday_seven_day"
@@ -31,10 +30,10 @@ class BirthdayNotificationManager(private val context: Context) {
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
             CHANNEL_ID,
-            CHANNEL_NAME,
+            context.getString(R.string.notification_channel_name),
             NotificationManager.IMPORTANCE_DEFAULT
         ).apply {
-            description = "Notifications for upcoming birthdays"
+            description = context.getString(R.string.notification_channel_description)
         }
         
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -122,19 +121,19 @@ class BirthdayNotificationManager(private val context: Context) {
             "same_day" -> context.getString(R.string.birthday_today_celebration)
             "3_day_advance" -> context.getString(R.string.three_day_notifications_title)
             "7_day_advance" -> context.getString(R.string.seven_day_notifications_title)
-            else -> "Birthday Reminder"
+            else -> context.getString(R.string.notification_birthday_reminder)
         }
         
         val message = when (type) {
             "same_day" -> if (age != null) {
-                "$name is turning $age today!"
+                context.getString(R.string.notification_birthday_today, name, age)
             } else {
-                "$name's birthday is today!"
+                context.getString(R.string.notification_birthday_today_no_age, name)
             }
             else -> if (age != null) {
-                "$name will turn $age in $days days"
+                context.getString(R.string.notification_birthday_in_days, name, age, days)
             } else {
-                "$name's birthday is in $days days"
+                context.getString(R.string.notification_birthday_in_days_no_age, name, days)
             }
         }
         
@@ -155,4 +154,6 @@ data class NotificationSettings(
     val sameDayEnabled: Boolean = true,
     val threeDayEnabled: Boolean = false,
     val sevenDayEnabled: Boolean = false
-)
+) {
+    fun hasAnyEnabled(): Boolean = sameDayEnabled || threeDayEnabled || sevenDayEnabled
+}

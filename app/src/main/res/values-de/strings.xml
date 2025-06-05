@@ -28,4 +28,13 @@
     <string name="permission_explanation">Wir benötigen Zugriff auf Ihre Kontakte, um Geburtstage in der App anzuzeigen.</string>
     <string name="grant_permission_button">Kontaktzugriff erlauben</string>
     <string name="permission_denied_message">Da Sie die Kontaktberechtigung nicht akzeptiert haben, kann die App nicht viel tun.</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Geburtstags-Benachrichtigungen</string>
+    <string name="notification_channel_description">Benachrichtigungen für bevorstehende Geburtstage</string>
+    <string name="notification_birthday_reminder">Geburtstag</string>
+    <string name="notification_birthday_today">%s wird heute %d Jahre alt!</string>
+    <string name="notification_birthday_today_no_age">%s hat heute Geburtstag!</string>
+    <string name="notification_birthday_in_days">%s wird in %d Tagen %d Jahre alt</string>
+    <string name="notification_birthday_in_days_no_age">%s hat in %d Tagen Geburtstag</string>
 </resources>

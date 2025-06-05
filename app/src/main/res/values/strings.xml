@@ -28,4 +28,13 @@
     <string name="permission_explanation">We need access to your contacts to display birthdays in the app.</string>
     <string name="grant_permission_button">Grant Contacts Permission</string>
     <string name="permission_denied_message">Since you haven\'t accepted the contacts permission, the app can\'t do much.</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_name">Birthday Notifications</string>
+    <string name="notification_channel_description">Notifications for upcoming birthdays</string>
+    <string name="notification_birthday_reminder">Birthday Reminder</string>
+    <string name="notification_birthday_today">%s is turning %d today!</string>
+    <string name="notification_birthday_today_no_age">%s\'s birthday is today!</string>
+    <string name="notification_birthday_in_days">%s will turn %d in %d days</string>
+    <string name="notification_birthday_in_days_no_age">%s\'s birthday is in %d days</string>
 </resources>
