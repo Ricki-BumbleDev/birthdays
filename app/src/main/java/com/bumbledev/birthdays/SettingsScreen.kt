@@ -108,7 +108,7 @@ fun SettingsScreen(navController: NavController) {
     fun requestNotificationPermissionIfNeeded(toggleType: String, newValue: Boolean) {
         if (newValue && !hasNotificationPermission()) {
             pendingToggleType = toggleType
-            pendingToggleValue = newValue
+            pendingToggleValue = true
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
@@ -159,7 +159,7 @@ fun SettingsScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Column(modifier = Modifier.weight(1f)) {
+                        Column(modifier = Modifier.weight(1f).padding(end = 16.dp)) {
                             Text(
                                 text = stringResource(R.string.birthday_notifications_title),
                                 style = MaterialTheme.typography.titleMedium

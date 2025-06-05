@@ -1,14 +1,17 @@
 package com.bumbledev.birthdays
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.work.*
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.workDataOf
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import java.util.concurrent.TimeUnit
 
@@ -110,12 +113,13 @@ class BirthdayNotificationManager(private val context: Context) {
         return ChronoUnit.MILLIS.between(LocalDateTime.now(), targetTime)
     }
     
-    fun cancelAllNotifications() {
+    private fun cancelAllNotifications() {
         WorkManager.getInstance(context).cancelAllWorkByTag(SAME_DAY_WORK_TAG)
         WorkManager.getInstance(context).cancelAllWorkByTag(THREE_DAY_WORK_TAG)
         WorkManager.getInstance(context).cancelAllWorkByTag(SEVEN_DAY_WORK_TAG)
     }
     
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     fun showNotification(name: String, type: String, age: Int?, days: Int?) {
         val title = when (type) {
             "same_day" -> context.getString(R.string.birthday_today_celebration)
