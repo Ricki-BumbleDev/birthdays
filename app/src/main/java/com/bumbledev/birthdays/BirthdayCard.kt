@@ -23,10 +23,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 object DateFormatters {
-    val DATE_WITHOUT_YEAR: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd")
-    val DATE_WITH_YEAR: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy")
+    fun getDateWithoutYearFormatter(): DateTimeFormatter {
+        return when (Locale.getDefault().language) {
+            "de" -> DateTimeFormatter.ofPattern("d. MMMM", Locale.getDefault())
+            else -> DateTimeFormatter.ofPattern("MMMM d", Locale.getDefault())
+        }
+    }
+    
+    fun getDateWithYearFormatter(): DateTimeFormatter {
+        return when (Locale.getDefault().language) {
+            "de" -> DateTimeFormatter.ofPattern("d. MMMM yyyy", Locale.getDefault())
+            else -> DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.getDefault())
+        }
+    }
 }
 
 @Composable
@@ -53,9 +65,9 @@ fun BirthdayCard(birthday: Birthday) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 val dateText = if (birthday.dateWithYear != null) {
-                    birthday.dateWithYear.format(DateFormatters.DATE_WITH_YEAR)
+                    birthday.dateWithYear.format(DateFormatters.getDateWithYearFormatter())
                 } else {
-                    birthday.dateWithoutYear.format(DateFormatters.DATE_WITHOUT_YEAR)
+                    birthday.dateWithoutYear.format(DateFormatters.getDateWithoutYearFormatter())
                 }
 
                 Text(

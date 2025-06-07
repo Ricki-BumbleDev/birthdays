@@ -16,20 +16,49 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import kotlinx.coroutines.delay
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(navController: NavController) {
     val context = LocalContext.current
     val contactRepository = remember { ContactRepository(context) }
-    val birthdays = remember { contactRepository.getBirthdays() }
+    
+    var currentDate by remember { mutableStateOf(LocalDate.now()) }
+    var birthdays by remember { mutableStateOf(contactRepository.getBirthdays()) }
+    
+    LaunchedEffect(Unit) {
+        // Calculate milliseconds until next midnight
+        val now = LocalDateTime.now()
+        val nextMidnight = now.toLocalDate().plusDays(1).atStartOfDay()
+        val delayUntilMidnight = Duration.between(now, nextMidnight).toMillis()
+        
+        // Wait until midnight
+        delay(delayUntilMidnight)
+        
+        // Refresh data at midnight, then every 24 hours
+        while (true) {
+            currentDate = LocalDate.now()
+            birthdays = contactRepository.getBirthdays()
+            delay(24 * 60 * 60 * 1000L) // 24 hours
+        }
+    }
 
     Scaffold(
         topBar = {
